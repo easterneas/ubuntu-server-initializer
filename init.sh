@@ -58,9 +58,8 @@ echo "$PUBKEY" >> ~/.ssh/authorized_keys
 # Install Fail2Ban for additional protection against brute-force attacks
 sudo apt install fail2ban -y
 
-# Install kitty, fish, and set fish as default shell
-sudo apt install kitty fish -y
-chsh -s $(which fish)
+# Install kitty, fish, unzip (required for bun), and set fish as default shell
+sudo apt install kitty fish unzip -y
 
 # Install nvm (Node Version Manager) for the current user
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -75,6 +74,19 @@ fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/fun
 # Install nvm.fish plugin for nvm in fish
 fish -c 'fisher install jorgebucaran/nvm.fish'
 
+# Install bun
+curl -fsSL https://bun.sh/install | bash
+
+# Configure bun for fish shell
+mkdir -p ~/.config/fish
+echo 'set -x BUN_INSTALL "$HOME/.bun"' >> ~/.config/fish/config.fish
+echo 'set -x PATH "$BUN_INSTALL/bin" $PATH' >> ~/.config/fish/config.fish
+
+# Add bun completions for fish
+mkdir -p ~/.config/fish/completions
+curl -fsSL https://raw.githubusercontent.com/oven-sh/bun/main/completions/bun.fish -o ~/.config/fish/completions/bun.fish
+
+# Set fish as default shell
 chsh -s $(which fish)
 
 # Install Tailscale
