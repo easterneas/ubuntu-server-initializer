@@ -69,6 +69,14 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+# Install fisher (fish package manager)
+fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
+
+# Install nvm.fish plugin for nvm in fish
+fish -c 'fisher install jorgebucaran/nvm.fish'
+
+chsh -s $(which fish)
+
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
