@@ -86,12 +86,16 @@ echo 'set -x PATH "$BUN_INSTALL/bin" $PATH' >> ~/.config/fish/config.fish
 mkdir -p ~/.config/fish/completions
 curl -fsSL https://raw.githubusercontent.com/oven-sh/bun/main/completions/bun.fish -o ~/.config/fish/completions/bun.fish
 
-# Set fish as default shell
+# Set fish as default shell for future logins
 chsh -s $(which fish)
 
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
-echo "Setup complete. You may need to log out and log back in for shell changes to take effect."
+echo "Setup complete."
 echo "For Tailscale, run 'tailscale up' to authenticate and connect."
 echo "SSH is now configured for key-only authentication. Test a new login with your key before closing this session."
+echo "Starting fish shell now for immediate use..."
+
+# Start fish shell immediately to apply changes without relogin
+exec fish
